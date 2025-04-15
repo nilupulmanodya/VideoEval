@@ -261,7 +261,22 @@ function VideoUpload({ userId }: { userId: string }) {
 
             setVideoFile(null)
             setVideoTitle("")
-            alert("Video uploaded successfully and is being evaluated!")
+            // Send evaluation request to Python backend
+            const pythonBackendUrl = process.env.NEXT_PUBLIC_PYTHON_BACKEND_URL;
+            console.log("pythonBackendUrl", pythonBackendUrl)
+            await fetch(`${pythonBackendUrl}/evaluate`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user_id: userId,
+                video_url: publicUrl,
+                title: videoTitle,
+                video_id: data.path // This is the unique storage path
+              }),
+            });
+            alert("Video uploaded successfully and is evaluating.")
         } catch (error: any) {
             alert(error.message)
         } finally {
@@ -405,22 +420,16 @@ function EvaluationHistory({ userId }: { userId: string }) {
                                 {evaluation.status === "completed" && (
                                     <>
                                         <p>
-                                            <strong>Overall Score:</strong> {evaluation.overall_score}%
+                                          <strong>Results:</strong>{" "}
+                                          <a 
+                                            href={evaluation.results_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-600 hover:underline"
+                                          >
+                                            Download Results (CSV)
+                                          </a>
                                         </p>
-                                        <div className="grid grid-cols-3 gap-2">
-                                            <div>
-                                                <p><strong>Presentation:</strong></p>
-                                                <p>{evaluation.presentation_score}%</p>
-                                            </div>
-                                            <div>
-                                                <p><strong>Delivery:</strong></p>
-                                                <p>{evaluation.delivery_score}%</p>
-                                            </div>
-                                            <div>
-                                                <p><strong>Content:</strong></p>
-                                                <p>{evaluation.content_score}%</p>
-                                            </div>
-                                        </div>
                                     </>
                                 )}
                             </div>
