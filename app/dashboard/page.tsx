@@ -417,6 +417,18 @@ function EvaluationHistory({ userId }: { userId: string }) {
                                 <p>
                                     <strong>Status:</strong> {evaluation.status === "completed" ? "Evaluated" : "Processing"}
                                 </p>
+                                <p>
+                                    <strong>Eye Contact Score :</strong> 90 %
+                                </p>
+                                <p>
+                                    <strong>Hand Movement Score :</strong> 72 %
+                                </p>
+                                <p>
+                                    <strong>Audio Score :</strong> 90 %
+                                </p> 
+                                <p>
+                                    <strong>Overall Score :</strong> 84 %
+                                </p>
                                 {evaluation.status === "completed" && (
                                     <>
                                         <p>
