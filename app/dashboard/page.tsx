@@ -418,16 +418,16 @@ function EvaluationHistory({ userId }: { userId: string }) {
                                     <strong>Status:</strong> {evaluation.status === "completed" ? "Evaluated" : "Processing"}
                                 </p>
                                 <p>
-                                    <strong>Eye Contact Score :</strong> 90 %
+                                    <strong>Eye Contact Score :</strong> {evaluation.eye_contact_score?.toFixed(2)} %
                                 </p>
                                 <p>
-                                    <strong>Hand Movement Score :</strong> 72 %
+                                    <strong>Hand Movement Score :</strong> {evaluation.hand_movement_score?.toFixed(2)} %
                                 </p>
                                 <p>
-                                    <strong>Audio Score :</strong> 90 %
+                                    <strong>Audio Score :</strong> {evaluation.audio_score?.toFixed(2)} %
                                 </p> 
                                 <p>
-                                    <strong>Overall Score :</strong> 84 %
+                                    <strong>Overall Score :</strong> {evaluation.overall_score?.toFixed(2)} %
                                 </p>
                                 {evaluation.status === "completed" && (
                                     <>
